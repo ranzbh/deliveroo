@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access Denied · Deliveroo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Absolute path — works correctly regardless of which URL triggered the error -->
+    <!-- This view is shared by both 401 (unauthenticated) and 403 (forbidden) responses -->
+    <link rel="stylesheet" href="/error.css" />
+  </head>
+  <body>
+    <main>
+      <div class="stack">
+        <div class="badge">Access Denied</div>
+      </div>
+      <h1>You don't have permission to view this</h1>
+      <p>
+        You may not be logged in, or your account does not have access to this
+        resource. Please log in and try again.
+      </p>
+      <div class="actions">
+        <a class="button" href="/login">Log in</a>
+        <a class="button secondary" href="/">Go to Home</a>
+      </div>
+      <p class="small">
+        If you believe this is a mistake, make sure you are using the correct
+        account or contact support.
+      </p>
+    </main>
+  </body>
+</html>

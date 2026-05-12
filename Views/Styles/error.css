@@ -1,0 +1,164 @@
+/* ─── error.css — Error pages (400 / 401 / 403 / 404 / 500) ───────────────── */
+/* NOTE: Error pages load this sheet with an absolute path (/error.css) so it  */
+/* is served correctly regardless of which URL triggered the error.             */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ─────────────────────────────────────────────────────────────────── */
+:root {
+  --teal:       #00ccbc;
+  --teal-dark:  #00b3a4;
+  --teal-dim:   rgba(0, 204, 188, 0.10);
+  --text-primary:  #111827;
+  --text-secondary:#374151;
+  --text-muted:    #6b7280;
+  --border:        #e5e7eb;
+  --bg:            #f3f5f6;
+  --surface:       #ffffff;
+  --radius:        8px;
+  --shadow:        0 4px 24px rgba(0, 0, 0, 0.08);
+  --font:          "DM Sans", system-ui, sans-serif;
+}
+
+/* ── Page ───────────────────────────────────────────────────────────────────── */
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+  background-size: 24px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+/* ── Card ───────────────────────────────────────────────────────────────────── */
+main {
+  background: var(--surface);
+  padding: 2.5rem 2.25rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* uniform gap between every child element */
+  animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* ── Badge ──────────────────────────────────────────────────────────────────── */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* gap between badge and any siblings inside .stack is handled by main gap */
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--teal-dim);
+  color: var(--teal-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── Heading ────────────────────────────────────────────────────────────────── */
+h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+/* ── Body copy ──────────────────────────────────────────────────────────────── */
+p {
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+/* ── Hint box ───────────────────────────────────────────────────────────────── */
+.hint {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fafbfb;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.hint code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.88em;
+  color: var(--text-primary);
+}
+
+/* ── Actions ────────────────────────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+a.button, button.button {
+  appearance: none;
+  background-color: var(--teal);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 140px;
+  transition: background-color 0.18s, transform 0.1s;
+  letter-spacing: 0.1px;
+}
+
+a.button:hover,  button.button:hover  { background-color: var(--teal-dark); }
+a.button:active, button.button:active { transform: scale(0.98); }
+
+a.button.secondary {
+  background: transparent;
+  color: var(--teal-dark);
+  border: 1.5px solid var(--border);
+}
+a.button.secondary:hover { background: var(--bg); }
+
+/* ── Fine print ─────────────────────────────────────────────────────────────── */
+.small {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 420px) {
+  main { padding: 2rem 1.5rem; }
+  h1   { font-size: 1.2rem; }
+  a.button, button.button { min-width: 0; }
+}

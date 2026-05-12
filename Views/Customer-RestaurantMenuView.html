@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse the menu and add items to your cart." />
+    <title>Deliveroo — {{restaurantName}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/dashboard.css" />
+  </head>
+  <body>
+    <nav>
+      <span class="brand">{{restaurantName}}</span>
+      <a href="/home">← Back to restaurants</a>
+    </nav>
+
+    <div class="container">
+
+      <!-- Menu items — each <li> is server-built with an Add to cart form -->
+      <div class="card">
+        <h2>Menu</h2>
+        <ul class="item-list">
+          {{menuItems}}
+        </ul>
+      </div>
+
+      <!-- Live cart — rebuilt on every page load from the DB -->
+      <div class="card">
+        <h2>Your Cart</h2>
+        <ul class="item-list">
+          {{cartItems}}
+        </ul>
+        <p class="price-total">
+          Total: <span class="amount">${{totalPrice}}</span>
+        </p>
+        <!-- Hidden restaurantId so the server knows which cart to submit -->
+        <form method="POST" action="/order/create" style="margin-top: 1rem;">
+          <input type="hidden" name="restaurantId" value="{{restaurantId}}" />
+          <!--
+            {{checkoutDisabled}} is either "" (empty — button is active) or
+            "disabled" (injected by the server when the cart is empty).
+            The attribute is intentionally placed bare so it reads:
+              <button type="submit" disabled>  or  <button type="submit" >
+          -->
+          <button type="submit" {{checkoutDisabled}}>Place Order</button>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

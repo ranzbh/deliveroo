@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse available restaurants and place your order." />
+    <title>Deliveroo — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/dashboard.css" />
+  </head>
+  <body>
+    <nav>
+      <span class="brand">Deliveroo</span>
+      <form method="POST" action="/auth/logout">
+        <button type="submit">Log out</button>
+      </form>
+    </nav>
+
+    <div class="container">
+      <h1>
+        Welcome back, <strong>{{userEmail}}</strong>
+      </h1>
+
+      <div class="card">
+        <h2>Available Restaurants</h2>
+        <ul class="item-list">
+          {{restaurantList}}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

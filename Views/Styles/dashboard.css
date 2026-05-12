@@ -1,0 +1,372 @@
+/* ─── dashboard.css — All authenticated dashboard pages ───────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap");
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ─────────────────────────────────────────────────────────────────── */
+:root {
+  --teal:           #00ccbc;
+  --teal-dark:      #00b3a4;
+  --teal-dim:       rgba(0, 204, 188, 0.10);
+  --text-primary:   #111827;
+  --text-secondary: #374151;
+  --text-muted:     #6b7280;
+  --border:         #e5e7eb;
+  --bg:             #f3f5f6;
+  --surface:        #ffffff;
+  --radius-sm:      4px;
+  --radius:         8px;
+  --radius-lg:      12px;
+  --shadow-sm:      0 1px 4px rgba(0,0,0,0.06);
+  --shadow:         0 2px 12px rgba(0,0,0,0.07);
+  --font:           "DM Sans", system-ui, sans-serif;
+  --font-mono:      "DM Mono", ui-monospace, monospace;
+
+  /* Status badge colour system — each status gets its own semantic colour */
+  --status-incomplete-bg:   rgba(107, 114, 128, 0.10);
+  --status-incomplete-text: #374151;
+  --status-submitted-bg:    rgba(59, 130, 246, 0.10);
+  --status-submitted-text:  #1d4ed8;
+  --status-preparing-bg:    rgba(245, 158, 11, 0.12);
+  --status-preparing-text:  #92400e;
+  --status-ontheway-bg:     rgba(139, 92, 246, 0.10);
+  --status-ontheway-text:   #5b21b6;
+  --status-delivered-bg:    rgba(16, 185, 129, 0.10);
+  --status-delivered-text:  #065f46;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────────── */
+html, body { min-height: 100%; }
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* ── Navigation bar ─────────────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  padding: 0.9rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+nav .brand {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--teal);
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Small teal dot before brand name */
+nav .brand::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+nav a {
+  font-size: 0.88rem;
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 0;
+  transition: opacity 0.15s;
+}
+nav a:hover { opacity: 0.75; }
+
+nav form button {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-family: var(--font);
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+nav form button:hover {
+  border-color: #d1d5db;
+  color: var(--text-secondary);
+  background: var(--bg);
+}
+
+/* ── Page layout ────────────────────────────────────────────────────────────── */
+.container {
+  max-width: 920px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  /* Fade in on load */
+  animation: fadeIn 0.3s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Page-level welcome heading (User-HomeView) */
+.container > h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+
+/* ── Cards ──────────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow);
+  border: 1px solid transparent;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+  border-color: var(--border);
+}
+
+.card h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.1px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Accent rule under card heading */
+.card h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Status badges ──────────────────────────────────────────────────────────── */
+/* Base badge style */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  /* Default: teal (fallback for unknown statuses) */
+  background: var(--teal-dim);
+  color: var(--teal-dark);
+}
+
+/* Per-status colour variants — applied via data-status attribute on the badge
+   OR via class names injected by the server for known statuses.
+   The controller injects order.status as plain text; CSS targets it via
+   attribute selectors on the parent element. */
+
+/* "Incomplete Cart" */
+[data-status="Incomplete Cart"] .badge,
+.badge[data-status="Incomplete Cart"],
+.status-incomplete { background: var(--status-incomplete-bg); color: var(--status-incomplete-text); }
+
+/* "Submitted" */
+[data-status="Submitted"] .badge,
+.badge[data-status="Submitted"],
+.status-submitted { background: var(--status-submitted-bg); color: var(--status-submitted-text); }
+
+/* "Preparing" */
+[data-status="Preparing"] .badge,
+.badge[data-status="Preparing"],
+.status-preparing { background: var(--status-preparing-bg); color: var(--status-preparing-text); }
+
+/* "On the way" */
+[data-status="On the way"] .badge,
+.badge[data-status="On the way"],
+.status-ontheway { background: var(--status-ontheway-bg); color: var(--status-ontheway-text); }
+
+/* "Delivered" */
+[data-status="Delivered"] .badge,
+.badge[data-status="Delivered"],
+.status-delivered { background: var(--status-delivered-bg); color: var(--status-delivered-text); }
+
+/* ── Item lists ─────────────────────────────────────────────────────────────── */
+ul.item-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+ul.item-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  background: #fafbfb;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+ul.item-list li:hover {
+  border-color: #d1d5db;
+  background: var(--surface);
+}
+
+ul.item-list li a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+ul.item-list li a:hover { color: var(--teal); }
+
+/* ── Forms inside cards ─────────────────────────────────────────────────────── */
+.card form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card input,
+.card select {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.93rem;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: #fafbfb;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  width: 100%;
+}
+
+.card input::placeholder { color: #9ca3af; }
+
+.card input:focus,
+.card select:focus {
+  outline: none;
+  border-color: var(--teal);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(0, 204, 188, 0.12);
+}
+
+.card select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 2rem;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────────── */
+.card button,
+button.btn {
+  background: var(--teal);
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.18s, transform 0.1s;
+  letter-spacing: 0.1px;
+}
+
+.card button:hover  { background: var(--teal-dark); }
+.card button:active { transform: scale(0.97); }
+
+/* Danger (cancel order) */
+.card button.danger {
+  background: transparent;
+  color: #dc2626;
+  border: 1.5px solid #fca5a5;
+  padding: 9px 18px;
+}
+.card button.danger:hover {
+  background: #fef2f2;
+  border-color: #dc2626;
+}
+
+/* Inline update buttons (inside li items) */
+.card button.btn-inline,
+li button,
+li .btn-inline {
+  background: var(--teal-dim);
+  color: var(--teal-dark);
+  border: 1px solid rgba(0,204,188,0.25);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+li button:hover { background: rgba(0,204,188,0.18); }
+
+/* ── Order ID monospace display ─────────────────────────────────────────────── */
+.order-id {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ── Price highlight ────────────────────────────────────────────────────────── */
+.price-total {
+  margin-top: 1rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+.price-total .amount { color: var(--teal); }
+
+/* ── Empty state ────────────────────────────────────────────────────────────── */
+.empty {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  text-align: center;
+  padding: 1.25rem 0;
+  width: 100%;
+  display: block;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  nav { padding: 0.75rem 1rem; }
+  .container { padding: 0 1rem; margin: 1.25rem auto; }
+  .card { padding: 1.25rem; }
+  ul.item-list li { flex-direction: column; align-items: flex-start; }
+}

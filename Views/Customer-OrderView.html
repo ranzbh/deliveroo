@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="View your order details and status." />
+    <title>Deliveroo — Order</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/dashboard.css" />
+  </head>
+  <body>
+    <nav>
+      <span class="brand">Deliveroo</span>
+      <a href="/home">← Home</a>
+    </nav>
+
+    <div class="container">
+
+      <!-- Order header: ID + current status badge -->
+      <div class="card">
+        <h2>Order Details</h2>
+        <p style="margin-bottom: 0.75rem;">
+          <span class="order-id">#{{orderId}}</span>
+        </p>
+        <!--
+          data-status is set to the live status value so the CSS badge colour
+          system (defined in dashboard.css) can apply the correct semantic colour
+          without any JavaScript. E.g. data-status="Delivered" → green badge.
+        -->
+        <span class="badge" data-status="{{orderStatus}}">{{orderStatus}}</span>
+      </div>
+
+      <!-- Line items + running total -->
+      <div class="card">
+        <h2>Items</h2>
+        <ul class="item-list">
+          {{orderItems}}
+        </ul>
+        <p class="price-total" style="margin-top: 1.2rem;">
+          Total: <span class="amount">${{totalPrice}}</span>
+        </p>
+      </div>
+
+      <!-- Cancel order — always rendered so the form is accessible.
+           The server already guards against cancelling On the way / Delivered
+           orders (returns 400), so this button is safe to show at all times.
+           A helpful note explains when cancellation is no longer available. -->
+      <div class="card">
+        <h2>Actions</h2>
+        <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 1rem;">
+          You can cancel this order while it is still being prepared.
+          Once a courrier has picked it up, cancellation is no longer possible.
+        </p>
+        <form method="POST" action="/order/cancel">
+          <input type="hidden" name="orderId" value="{{orderId}}" />
+          <button type="submit" class="danger">Cancel Order</button>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

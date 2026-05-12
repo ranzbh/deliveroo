@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>400 — Bad Request · Deliveroo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Absolute path — works correctly regardless of which URL triggered the error -->
+    <link rel="stylesheet" href="/error.css" />
+  </head>
+  <body>
+    <main>
+      <div class="stack">
+        <div class="badge">400 — Bad Request</div>
+      </div>
+      <h1>Something looks off with that request</h1>
+      <p>
+        The data sent to the server was incomplete or invalid.
+        Please check your input and try again.
+      </p>
+      <div class="actions">
+        <a class="button" href="/">Go back to Home</a>
+        <a class="button secondary" href="javascript:history.back()">Go back</a>
+      </div>
+      <p class="small">
+        If this keeps happening, the URL may be malformed or a required field
+        was missing. Contact support if you believe this is a mistake.
+      </p>
+    </main>
+  </body>
+</html>

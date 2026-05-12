@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Log in to your Deliveroo restaurant manager account." />
+    <title>Deliveroo — Restaurant Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
+    <main>
+      <div class="brand-mark">
+        <div class="logo-dot"></div>
+        <span>Deliveroo — Restaurant</span>
+      </div>
+
+      <h1>Restaurant Login</h1>
+
+      <form method="POST" action="/restaurant/login">
+        <label>
+          Restaurant Name
+          <input
+            placeholder="e.g. Pizza Palace"
+            type="text"
+            name="restaurantName"
+            autocomplete="organization"
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            placeholder="Your password"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          />
+        </label>
+        <button type="submit">Log in</button>
+      </form>
+
+      <p class="auth-footer">
+        New restaurant? <a href="/restaurant/register">Register</a>
+      </p>
+    </main>
+  </body>
+</html>

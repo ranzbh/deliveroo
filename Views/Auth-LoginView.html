@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Log in to your Deliveroo customer account." />
+    <title>Deliveroo — Log In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
+    <main>
+      <!-- Brand mark -->
+      <div class="brand-mark">
+        <div class="logo-dot"></div>
+        <span>Deliveroo</span>
+      </div>
+
+      <h1>Welcome back</h1>
+
+      <form method="POST" action="/auth/login">
+        <label>
+          Email Address
+          <input
+            placeholder="you@example.com"
+            type="email"
+            name="userEmail"
+            autocomplete="email"
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            placeholder="Your password"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          />
+        </label>
+        <button type="submit">Log in</button>
+      </form>
+
+      <p class="auth-footer">
+        Don't have an account?
+        <a href="/register">Create one</a>
+      </p>
+
+      <div class="divider">or</div>
+
+      <p class="auth-footer">
+        Restaurant manager? <a href="/restaurant/login">Log in here</a>
+      </p>
+      <p class="auth-footer">
+        Courrier? <a href="/courrier/login">Log in here</a>
+      </p>
+    </main>
+  </body>
+</html>

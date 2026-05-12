@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Log in to your Deliveroo courrier account." />
+    <title>Deliveroo — Courrier Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
+    <main>
+      <!-- Brand mark -->
+      <div class="brand-mark">
+        <div class="logo-dot"></div>
+        <span>Deliveroo — Courrier</span>
+      </div>
+
+      <h1>Courrier Login</h1>
+
+      <form method="POST" action="/courrier/login">
+        <label>
+          Phone Number
+          <input
+            placeholder="+1 555 000 0000"
+            type="tel"
+            name="phoneNumber"
+            autocomplete="tel"
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            placeholder="Your password"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          />
+        </label>
+        <button type="submit">Log in</button>
+      </form>
+
+      <p class="auth-footer">
+        New courrier? <a href="/courrier/register">Register</a>
+      </p>
+    </main>
+  </body>
+</html>

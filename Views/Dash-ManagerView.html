@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Manage your restaurant menu and incoming orders." />
+    <title>Deliveroo — {{restaurantName}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/dashboard.css" />
+  </head>
+  <body>
+    <nav>
+      <span class="brand">{{restaurantName}}</span>
+      <form method="POST" action="/restaurant/logout">
+        <button type="submit">Log out</button>
+      </form>
+    </nav>
+
+    <div class="container">
+
+      <!--
+        {{orders}} — server-built list of pending orders.
+        Each <li> contains the order ID, status badge, and (for Submitted orders)
+        an inline form to assign an available courrier via <select>.
+      -->
+      <div class="card">
+        <h2>Pending Orders</h2>
+        <ul class="item-list">
+          {{orders}}
+        </ul>
+      </div>
+
+      <!--
+        {{menuItems}} — server-built list of current menu items (name + price).
+      -->
+      <div class="card">
+        <h2>Current Menu</h2>
+        <ul class="item-list">
+          {{menuItems}}
+        </ul>
+      </div>
+
+      <!-- Add menu item form — name, price (validated to ≥ 0), optional description -->
+      <div class="card">
+        <h2>Add Menu Item</h2>
+        <form method="POST" action="/restaurant/menu/add">
+          <label style="font-weight:600; font-size:0.85rem; color:#6b7280; text-transform:uppercase; letter-spacing:0.4px; display:flex; flex-direction:column; gap:0.4rem;">
+            Item Name
+            <input
+              type="text"
+              name="name"
+              placeholder="e.g. Margherita Pizza"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <label style="font-weight:600; font-size:0.85rem; color:#6b7280; text-transform:uppercase; letter-spacing:0.4px; display:flex; flex-direction:column; gap:0.4rem;">
+            Price ($)
+            <input
+              type="number"
+              name="price"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </label>
+          <label style="font-weight:600; font-size:0.85rem; color:#6b7280; text-transform:uppercase; letter-spacing:0.4px; display:flex; flex-direction:column; gap:0.4rem;">
+            Description <span style="text-transform:none; font-weight:400;">(optional)</span>
+            <input
+              type="text"
+              name="description"
+              placeholder="Short description of the item"
+              autocomplete="off"
+            />
+          </label>
+          <button type="submit">Add Item</button>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>
